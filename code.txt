@@ -1,0 +1,7 @@
+int main(){//主函数
+    int aw1=0.128e+8;
+    complex c2=2.25+8.24i;
+    if(true){//按需
+        aw1-=2;
+    };
+}
