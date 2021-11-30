@@ -1,47 +1,4 @@
-#include "lexer.cpp"
-#include <queue>
-#include <stack>
-
-//项目
-typedef struct proj {
-    prod p;//项目
-    unsigned int lo{};//点的位置
-    string next;//向前搜索符
-
-    //重载==
-    bool operator==(const proj &pr) const {
-        if (p != pr.p) { return false; }
-        if (lo != pr.lo) { return false; }
-        if (next != pr.next) { return false; }
-        return true;
-    }
-
-    bool operator!=(const proj &pr) const {
-        if (p != pr.p) { return true; }
-        if (lo != pr.lo) { return true; }
-        if (next != pr.next) { return true; }
-        return false;
-    }
-} proj;
-
-//项目集
-typedef struct projset {
-    vector<proj> p;//项目集
-    int n{};//别名
-} projset;
-
-//项目集规范族
-typedef struct canclet {
-    vector<projset> pjset;//项目集规范族
-    map<int, map<string, int>> f;//状态输入某字符的下一状态
-    map<string, string> ag;//action表和goto表，状态和输入符号确定动作
-} canclet;
-
-//状态栈和符号栈的数据结构
-typedef struct wst {
-    int sta{};//状态
-    string wrd;//符号
-} wst;
+#include "parser.h"
 
 //string到令牌表
 vector<tok> strtotoken(const vector<string> &v) {
@@ -395,6 +352,7 @@ void gctrl(const canclet &c, const vector<tok> &vt, const gra &g, int opt) {
     stack<wst> st;
     wst wtt;
     wtt.sta = 0;
+
     wtt.wrd = "#";
     st.push(wtt);//初始状态和符号
     int i = 0;
